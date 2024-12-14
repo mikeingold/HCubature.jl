@@ -250,10 +250,12 @@ it may be possible to mathematically transform the problem in some way
 to improve the convergence rate.
 """
 function hcubature_count(f, a, b; kws...)
+    count = Ref(0)
     I, E = hcubature(a, b; kws...) do x
+        count[] += 1
         f(x)
     end
-    return (I, E)
+    return (I, E, count[])
 end
 
 """
